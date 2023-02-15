@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { movies } from "../../lib/data";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Movie() {
-  const currentMovie = movies.find((movie) => movie.slug === "aquaman");
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const currentMovie = movies.find((movie) => movie.slug === slug);
 
   if (!currentMovie) {
     return null;
@@ -12,6 +17,9 @@ export default function Movie() {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <h1>
         {title} <small>{year}</small>
       </h1>
